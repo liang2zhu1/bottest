@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  project_card:
+    types: [moved, created]
+
+jobs:
+  project_automation_job:
+    runs-on: ubuntu-latest
+    name: Project Automation Job
+    steps:
+      # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Project Automation
+        uses: ./ # Uses an action in the root directory
+        id: card_movement
+        with:
+          who-to-greet: "Mona the Octocat"
+          event-type: "card-moved"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
